@@ -76,6 +76,15 @@
                     <span class="text-slate-600">|</span>
                     <button onclick="changeLang('en')" id="lang-btn-en" class="text-slate-400 hover:text-white px-1">EN</button>
                 </div>
+<div class="flex items-center space-x-1 font-semibold text-[11px] ml-4">
+    <span class="text-slate-400">Валюта:</span>
+    <select id="currency-selector" onchange="changeCurrency(this.value)" class="bg-slate-800 text-white border border-slate-600 rounded px-1.5 py-0.5 text-[11px] cursor-pointer">
+        <option value="USD">$ USD</option>
+        <option value="RUB">₽ RUB</option>
+        <option value="KZT">₸ KZT</option>
+        <option value="VND">₫ VND</option>
+    </select>
+</div>
             </div>
         </div>
     </div>
@@ -1076,6 +1085,30 @@
             const nav = document.getElementById('mobile-nav');
             nav.classList.toggle('hidden');
         }
-    </script>
+    // Курсы валют (базовая цена в рублях или долларах)
+const exchangeRates = {
+    USD: { rate: 0.011, symbol: '$' },
+    RUB: { rate: 1, symbol: '₽' },
+    KZT: { rate: 5.4, symbol: '₸' },
+    VND: { rate: 280, symbol: '₫' }
+};
+
+let currentCurrency = 'RUB';
+
+function changeCurrency(currency) {
+    currentCurrency = currency;
+    updatePricesOnSite();
+}
+
+function updatePricesOnSite() {
+    const rate = exchangeRates[currentCurrency].rate;
+    const symbol = exchangeRates[currentCurrency].symbol;
+
+    document.querySelectorAll('.product-price').forEach(el => {
+        const basePrice = parseFloat(el.getAttribute('data-base-price'));
+        const convertedPrice = Math.round(basePrice * rate);
+        el.innerText = convertedPrice.toLocaleString() + ' ' + symbol;
+    });
+}</script>
 </body>
 </html>
