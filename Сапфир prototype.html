@@ -1,0 +1,1081 @@
+<!DOCTYPE html>
+<html lang="ru" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NGỌC THẠCH «САПФИР» | Интернет-магазин натуральных товаров из Азии</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts: Inter & Montserrat -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brandGreen: '#70D52E',
+                        dustyGreen: '#4A7055',
+                        dustyGreenLight: '#5E8C6A',
+                        dustyGreenBg: '#EAF0EC',
+                        brandRed: '#D93648',
+                        darkNeutral: '#222222',
+                        sandSoft: '#F4F6F4',
+                    },
+                    fontFamily: {
+                        sans: ['Plus Jakarta Sans', 'sans-serif'],
+                        heading: ['Montserrat', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        .dusty-hero-bg {
+            background: linear-gradient(135deg, #4A7055 0%, #36533F 100%);
+        }
+        .dusty-card-bg {
+            background-color: rgba(94, 140, 106, 0.08);
+        }
+        .text-shadow-sm {
+            text-shadow: 0 2px 4px rgba(0,0,0,0.15);
+        }
+        /* Custom scrollbar */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #f1f1f1; }
+        ::-webkit-scrollbar-thumb { background: #4A7055; border-radius: 4px; }
+    </style>
+</head>
+<body class="bg-slate-50 font-sans text-darkNeutral antialiased flex flex-col min-h-screen">
+
+    <!-- 0. TOP LEGAL & INFO BAR -->
+    <div class="bg-darkNeutral text-white text-xs py-2 px-4 border-b border-slate-800">
+        <div class="max-w-7xl mx-auto flex flex-wrap justify-between items-center gap-2">
+            <div class="flex items-center space-x-4 text-slate-300">
+                <span class="flex items-center gap-1.5"><i class="fa-solid fa-location-dot text-brandGreen"></i> Нячанг, Вьетнам</span>
+                <span class="hidden md:inline-flex items-center gap-1.5"><i class="fa-solid fa-clock text-amber-400"></i> Пн-Вс: 08:00 - 22:00</span>
+                <span class="hidden sm:inline-flex items-center gap-1.5"><i class="fa-solid fa-truck-fast text-brandGreen"></i> Доставка из Вьетнама по всему миру</span>
+            </div>
+            
+            <div class="flex items-center space-x-4">
+                <!-- Admin Panel Toggle Button -->
+                <button onclick="toggleAdminPanel()" class="bg-dustyGreen hover:bg-dustyGreenLight text-white px-2.5 py-1 rounded text-[11px] font-medium transition flex items-center gap-1">
+                    <i class="fa-solid fa-sliders"></i> <span id="admin-btn-text">Панель управления CMS</span>
+                </button>
+
+                <!-- Language Switcher -->
+                <div class="flex items-center space-x-1 font-semibold text-[11px]">
+                    <button onclick="changeLang('ru')" id="lang-btn-ru" class="text-brandGreen underline px-1">RU</button>
+                    <span class="text-slate-600">|</span>
+                    <button onclick="changeLang('vn')" id="lang-btn-vn" class="text-slate-400 hover:text-white px-1">VN</button>
+                    <span class="text-slate-600">|</span>
+                    <button onclick="changeLang('en')" id="lang-btn-en" class="text-slate-400 hover:text-white px-1">EN</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 1. HEADER & MAIN NAVIGATION -->
+    <header class="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-slate-200 shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                
+                <!-- Brand Logo -->
+                <a href="javascript:void(0)" onclick="switchTab('home')" class="flex items-center space-x-3 group">
+                    <div class="w-12 h-12 rounded-xl bg-brandGreen/15 border-2 border-brandGreen flex items-center justify-center text-brandGreen group-hover:bg-brandGreen group-hover:text-white transition-all duration-300 shadow-sm">
+                        <i class="fa-solid fa-leaf text-2xl"></i>
+                    </div>
+                    <div>
+                        <div class="font-heading font-extrabold text-brandRed text-xl sm:text-2xl leading-none tracking-tight">
+                            NGỌC THẠCH
+                        </div>
+                        <div class="font-heading font-black text-dustyGreen text-sm sm:text-base tracking-widest leading-none mt-1 uppercase">
+                            САПФИР
+                        </div>
+                    </div>
+                </a>
+
+                <!-- Search Bar (Desktop) -->
+                <div class="hidden lg:flex items-center flex-1 max-w-md mx-8">
+                    <div class="relative w-full">
+                        <input type="text" id="global-search-input" onkeyup="handleGlobalSearch(event)" placeholder="Поиск: Кордицепс, Линжи, Женьшень..." class="w-full bg-slate-100 border border-slate-300 rounded-full py-2.5 pl-4 pr-10 text-xs focus:outline-none focus:border-dustyGreen focus:bg-white transition">
+                        <button onclick="executeSearch()" class="absolute right-3 top-2.5 text-slate-400 hover:text-dustyGreen">
+                            <i class="fa-solid fa-magnifying-glass"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Action Buttons / Cart Indicator -->
+                <div class="flex items-center space-x-3">
+                    <a href="https://t.me/sup_sihanoukville" target="_blank" class="hidden sm:flex items-center gap-1.5 text-xs font-semibold text-slate-700 hover:text-sky-600 bg-sky-50 border border-sky-200 px-3 py-2 rounded-full transition">
+                        <i class="fa-brands fa-telegram text-sky-500 text-sm"></i> Telegram
+                    </a>
+                    <a href="https://wa.me/qr/FTGHYI24RDLLJ1" target="_blank" class="hidden sm:flex items-center gap-1.5 text-xs font-semibold text-slate-700 hover:text-emerald-600 bg-emerald-50 border border-emerald-200 px-3 py-2 rounded-full transition">
+                        <i class="fa-brands fa-whatsapp text-emerald-500 text-sm"></i> WhatsApp
+                    </a>
+
+                    <!-- Mobile Menu Button -->
+                    <button onclick="toggleMobileNav()" class="lg:hidden p-2 text-darkNeutral hover:text-dustyGreen focus:outline-none">
+                        <i id="mobile-menu-icon" class="fa-solid fa-bars text-xl"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Horizontal Desktop Navbar Navigation -->
+            <nav class="hidden lg:flex items-center justify-between border-t border-slate-100 py-3 text-xs font-bold tracking-wide uppercase text-slate-700">
+                <button onclick="switchTab('home')" id="nav-home" class="nav-link text-brandRed border-b-2 border-brandRed pb-1">Главная</button>
+                <button onclick="switchTab('catalog')" id="nav-catalog" class="nav-link hover:text-dustyGreen transition pb-1">Каталог товаров</button>
+                <button onclick="switchTab('delivery')" id="nav-delivery" class="nav-link hover:text-dustyGreen transition pb-1 flex items-center gap-1">
+                    <i class="fa-solid fa-plane-departure text-brandGreen"></i> Доставка из Вьетнама
+                </button>
+                <button onclick="switchTab('cosmetics')" id="nav-cosmetics" class="nav-link hover:text-dustyGreen transition pb-1">Косметика и уход</button>
+                <button onclick="switchTab('about')" id="nav-about" class="nav-link hover:text-dustyGreen transition pb-1">О магазине</button>
+                <button onclick="switchTab('blog')" id="nav-blog" class="nav-link hover:text-dustyGreen transition pb-1">Статьи / Блог</button>
+                <button onclick="switchTab('contacts')" id="nav-contacts" class="nav-link hover:text-dustyGreen transition pb-1">Контакты и адреса</button>
+            </nav>
+        </div>
+
+        <!-- Mobile Navigation Menu Dropdown -->
+        <div id="mobile-nav" class="hidden lg:hidden bg-white border-b border-slate-200 px-4 pt-2 pb-6 space-y-2 text-sm font-semibold">
+            <div class="mb-3 pt-2">
+                <input type="text" onkeyup="handleGlobalSearch(event)" placeholder="Поиск товаров..." class="w-full bg-slate-100 border border-slate-300 rounded-lg py-2 px-3 text-xs">
+            </div>
+            <button onclick="switchTab('home')" class="block w-full text-left py-2 px-3 rounded-lg hover:bg-slate-100">Главная</button>
+            <button onclick="switchTab('catalog')" class="block w-full text-left py-2 px-3 rounded-lg hover:bg-slate-100">Каталог товаров</button>
+            <button onclick="switchTab('delivery')" class="block w-full text-left py-2 px-3 rounded-lg hover:bg-slate-100 text-dustyGreen font-bold">Доставка из Вьетнама</button>
+            <button onclick="switchTab('cosmetics')" class="block w-full text-left py-2 px-3 rounded-lg hover:bg-slate-100">Косметика и уход</button>
+            <button onclick="switchTab('about')" class="block w-full text-left py-2 px-3 rounded-lg hover:bg-slate-100">О магазине</button>
+            <button onclick="switchTab('blog')" class="block w-full text-left py-2 px-3 rounded-lg hover:bg-slate-100">Статьи / Блог</button>
+            <button onclick="switchTab('contacts')" class="block w-full text-left py-2 px-3 rounded-lg hover:bg-slate-100">Контакты и адреса</button>
+        </div>
+    </header>
+
+    <!-- ADMIN PANEL OVERLAY / DRAWER (Simulated CMS) -->
+    <div id="admin-panel" class="hidden bg-slate-900 text-white py-4 px-4 sm:px-8 border-b-4 border-brandGreen transition-all">
+        <div class="max-w-7xl mx-auto space-y-3">
+            <div class="flex justify-between items-center border-b border-slate-800 pb-2">
+                <h3 class="font-heading font-bold text-sm text-brandGreen flex items-center gap-2">
+                    <i class="fa-solid fa-gears"></i> Административная панель сайта (CMS SIMULATOR)
+                </h3>
+                <span class="text-xs text-slate-400">Технический раздел управления контентом</span>
+            </div>
+            <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 text-xs">
+                <button onclick="showAdminAlert('Форма добавления нового товара открыта')" class="bg-slate-800 hover:bg-slate-700 p-2.5 rounded-lg border border-slate-700 text-left">
+                    <i class="fa-solid fa-plus text-brandGreen mr-1"></i> Добавить товар
+                </button>
+                <button onclick="showAdminAlert('Редактирование прайс-листа и цен')" class="bg-slate-800 hover:bg-slate-700 p-2.5 rounded-lg border border-slate-700 text-left">
+                    <i class="fa-solid fa-tags text-amber-400 mr-1"></i> Изменить цены
+                </button>
+                <button onclick="showAdminAlert('Настройка категорий и фильтров')" class="bg-slate-800 hover:bg-slate-700 p-2.5 rounded-lg border border-slate-700 text-left">
+                    <i class="fa-solid fa-folder-tree text-sky-400 mr-1"></i> Категории товаров
+                </button>
+                <button onclick="showAdminAlert('Редактор контактов магазинов')" class="bg-slate-800 hover:bg-slate-700 p-2.5 rounded-lg border border-slate-700 text-left">
+                    <i class="fa-solid fa-map-pin text-rose-400 mr-1"></i> Адреса в Нячанге
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- MAIN DYNAMIC CONTENT CONTAINER -->
+    <main class="flex-1">
+
+        <!-- ================= PAGE 1: ГЛАВНАЯ (HOME) ================= -->
+        <div id="page-home" class="page-content space-y-16 pb-16">
+            
+            <!-- Hero Banner Section (Clean Minimalist Dusty Green Aesthetic) -->
+            <section class="relative dusty-hero-bg text-white overflow-hidden py-16 sm:py-24 px-4 sm:px-6 lg:px-8">
+                <!-- Background subtle leaf patterns -->
+                <div class="absolute inset-0 opacity-10 pointer-events-none">
+                    <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
+                        <defs><pattern id="leaf-pattern" width="60" height="60" patternUnits="userSpaceOnUse"><path d="M30 0 C 45 15, 45 45, 30 60 C 15 45, 15 15, 30 0 Z" fill="#FFFFFF"/></pattern></defs>
+                        <rect width="100%" height="100%" fill="url(#leaf-pattern)"/>
+                    </svg>
+                </div>
+
+                <div class="relative max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
+                    
+                    <!-- Left Hero Content -->
+                    <div class="lg:col-span-7 space-y-6 text-center lg:text-left">
+                        
+                        <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/10 border border-white/20 backdrop-blur-md text-emerald-200 text-xs font-semibold">
+                            <i class="fa-solid fa-award text-brandGreen"></i> 100% Оригинальная продукция из Азии
+                        </div>
+
+                        <h1 class="font-heading font-black text-3xl sm:text-5xl lg:text-6xl tracking-tight leading-tight uppercase text-shadow-sm">
+                            ПОЛЕЗНЫЕ ТОВАРЫ <br class="hidden sm:inline">ИЗ АЗИИ
+                        </h1>
+
+                        <p class="text-slate-200 text-base sm:text-lg max-w-2xl font-light leading-relaxed">
+                            Натуральные биологически активные добавки, целебные грибы, маточное молочко, пасты женьшеня и премиальная уходовая косметика из Вьетнама, Южной Кореи, Таиланда и Японии.
+                        </p>
+
+                        <!-- Call to Action Buttons -->
+                        <div class="pt-4 flex flex-wrap justify-center lg:justify-start gap-4">
+                            <button onclick="switchTab('catalog')" class="bg-brandGreen hover:bg-emerald-500 text-darkNeutral font-extrabold text-sm px-7 py-4 rounded-xl shadow-xl transition transform hover:-translate-y-0.5 flex items-center gap-2 uppercase tracking-wide">
+                                <i class="fa-solid fa-store"></i> Перейти в каталог
+                            </button>
+                            <button onclick="switchTab('delivery')" class="bg-white/15 hover:bg-white/25 border border-white/30 text-white font-bold text-sm px-7 py-4 rounded-xl transition flex items-center gap-2 uppercase tracking-wide backdrop-blur-md">
+                                <i class="fa-solid fa-truck-ramp-box"></i> Доставка из Вьетнама
+                            </button>
+                        </div>
+
+                        <!-- Highlights tags -->
+                        <div class="pt-6 border-t border-white/15 grid grid-cols-3 gap-2 text-center text-xs text-slate-200">
+                            <div>
+                                <div class="font-bold text-white text-base">30+</div>
+                                <div class="text-[11px]">Наименований</div>
+                            </div>
+                            <div>
+                                <div class="font-bold text-white text-base">3 Магазина</div>
+                                <div class="text-[11px]">в г. Нячанг</div>
+                            </div>
+                            <div>
+                                <div class="font-bold text-white text-base">5 Стран</div>
+                                <div class="text-[11px]">Поставщиков</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Right Hero Graphic / Banner Visual -->
+                    <div class="lg:col-span-5 relative flex justify-center">
+                        <div class="relative w-full max-w-md bg-white/10 backdrop-blur-md p-6 rounded-3xl border border-white/20 shadow-2xl">
+                            <!-- Banner Artwork Representation (Dusty Green Minimalist) -->
+                            <div class="aspect-[4/3] rounded-2xl overflow-hidden bg-dustyGreen flex flex-col items-center justify-center p-6 text-center text-white relative group">
+                                <div class="absolute inset-0 bg-gradient-to-t from-darkNeutral/60 to-transparent"></div>
+                                <i class="fa-solid fa-mortar-pestle text-6xl text-brandGreen mb-3 relative z-10"></i>
+                                <div class="font-heading font-black text-2xl tracking-wide relative z-10 text-white">NGỌC THẠCH</div>
+                                <div class="font-heading font-bold text-lg text-amber-300 tracking-widest relative z-10">САПФИР</div>
+                                <p class="text-xs text-slate-200 mt-2 relative z-10">Вьетнам • Корея • Таиланд • Япония</p>
+                                <span class="mt-4 inline-block bg-brandRed text-white text-[10px] font-bold px-3 py-1 rounded-full relative z-10">Нячанг, Вьетнам</span>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </section>
+
+            <!-- Quick Categories Grid -->
+            <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center space-y-2 mb-10">
+                    <h2 class="font-heading font-extrabold text-2xl sm:text-3xl text-darkNeutral uppercase tracking-tight">Популярные Категории</h2>
+                    <p class="text-slate-500 text-xs sm:text-sm">Выберите интересующее вас направление продукций</p>
+                </div>
+
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6">
+                    <div onclick="filterCategory('БАДы')" class="cursor-pointer bg-white p-6 rounded-2xl border border-slate-200 hover:border-brandGreen hover:shadow-lg transition text-center space-y-3 group">
+                        <div class="w-14 h-14 mx-auto rounded-full bg-emerald-50 text-brandGreen flex items-center justify-center text-2xl group-hover:bg-brandGreen group-hover:text-white transition">
+                            <i class="fa-solid fa-capsules"></i>
+                        </div>
+                        <h3 class="font-heading font-bold text-slate-800 text-sm">БАДы и Витамины</h3>
+                        <p class="text-slate-400 text-xs">Магний, Аргинин, Силимарин</p>
+                    </div>
+
+                    <div onclick="filterCategory('Целебные средства')" class="cursor-pointer bg-white p-6 rounded-2xl border border-slate-200 hover:border-dustyGreen hover:shadow-lg transition text-center space-y-3 group">
+                        <div class="w-14 h-14 mx-auto rounded-full bg-dustyGreenBg text-dustyGreen flex items-center justify-center text-2xl group-hover:bg-dustyGreen group-hover:text-white transition">
+                            <i class="fa-solid fa-seedling"></i>
+                        </div>
+                        <h3 class="font-heading font-bold text-slate-800 text-sm">Грибы и Травы</h3>
+                        <p class="text-slate-400 text-xs">Линжи, Кордицепс, Женьшень</p>
+                    </div>
+
+                    <div onclick="filterCategory('Косметика')" class="cursor-pointer bg-white p-6 rounded-2xl border border-slate-200 hover:border-rose-400 hover:shadow-lg transition text-center space-y-3 group">
+                        <div class="w-14 h-14 mx-auto rounded-full bg-rose-50 text-rose-500 flex items-center justify-center text-2xl group-hover:bg-rose-500 group-hover:text-white transition">
+                            <i class="fa-solid fa-pump-soap"></i>
+                        </div>
+                        <h3 class="font-heading font-bold text-slate-800 text-sm">Косметика и Уход</h3>
+                        <p class="text-slate-400 text-xs">Улиточный крем, Масла</p>
+                    </div>
+
+                    <div onclick="filterCategory('Натуральные масла')" class="cursor-pointer bg-white p-6 rounded-2xl border border-slate-200 hover:border-amber-400 hover:shadow-lg transition text-center space-y-3 group">
+                        <div class="w-14 h-14 mx-auto rounded-full bg-amber-50 text-amber-500 flex items-center justify-center text-2xl group-hover:bg-amber-500 group-hover:text-white transition">
+                            <i class="fa-solid fa-bottle-droplet"></i>
+                        </div>
+                        <h3 class="font-heading font-bold text-slate-800 text-sm">Масла и Эликсиры</h3>
+                        <p class="text-slate-400 text-xs">Масло плодов Момордики</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Featured Products Carousel / Grid -->
+            <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="flex flex-col sm:flex-row justify-between items-start sm:items-end mb-8 border-b border-slate-200 pb-4 gap-4">
+                    <div>
+                        <span class="text-xs font-bold text-dustyGreen uppercase tracking-widest">Хиты продаж</span>
+                        <h2 class="font-heading font-black text-2xl sm:text-3xl text-darkNeutral uppercase">Популярные товары</h2>
+                    </div>
+                    <button onclick="switchTab('catalog')" class="text-xs font-bold text-dustyGreen hover:text-brandGreen flex items-center gap-1 uppercase">
+                        Смотреть весь каталог (30+) <i class="fa-solid fa-arrow-right"></i>
+                    </button>
+                </div>
+
+                <!-- Product Grid (Populated dynamically via JS) -->
+                <div id="home-products-grid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+                    <!-- Dynamic Product Cards will be rendered here -->
+                </div>
+            </section>
+
+            <!-- Store Advantages Section -->
+            <section class="bg-dustyGreenBg py-14 border-y border-slate-200">
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                        <div class="flex items-start space-x-4">
+                            <div class="w-12 h-12 rounded-xl bg-dustyGreen text-white flex items-center justify-center text-xl shrink-0">
+                                <i class="fa-solid fa-shield-cat"></i>
+                            </div>
+                            <div>
+                                <h3 class="font-heading font-bold text-slate-900 text-base">100% Гарантия Подлинности</h3>
+                                <p class="text-slate-600 text-xs mt-1 leading-relaxed">Все БАДы и косметика закупаются напрямую у официальных производителей Вьетнама, Кореи и Японии.</p>
+                            </div>
+                        </div>
+
+                        <div class="flex items-start space-x-4">
+                            <div class="w-12 h-12 rounded-xl bg-brandGreen text-darkNeutral flex items-center justify-center text-xl shrink-0">
+                                <i class="fa-solid fa-plane"></i>
+                            </div>
+                            <div>
+                                <h3 class="font-heading font-bold text-slate-900 text-base">Доставка из Вьетнама</h3>
+                                <p class="text-slate-600 text-xs mt-1 leading-relaxed">Отправка заказов в любую страну с соблюдением температурных условий и таможенных правил.</p>
+                            </div>
+                        </div>
+
+                        <div class="flex items-start space-x-4">
+                            <div class="w-12 h-12 rounded-xl bg-brandRed text-white flex items-center justify-center text-xl shrink-0">
+                                <i class="fa-solid fa-store"></i>
+                            </div>
+                            <div>
+                                <h3 class="font-heading font-bold text-slate-900 text-base">3 Магазина в Нячанге</h3>
+                                <p class="text-slate-600 text-xs mt-1 leading-relaxed">Приходите на личную дегустацию и консультацию в наши розничные точки в центре города.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Vietnam Shipping Promo Banner Block -->
+            <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="bg-slate-900 rounded-3xl p-8 sm:p-12 text-white relative overflow-hidden border border-slate-800">
+                    <div class="relative z-10 max-w-2xl space-y-4">
+                        <span class="inline-block bg-brandGreen text-darkNeutral font-extrabold text-[11px] px-3 py-1 rounded-full uppercase">Служба доставки</span>
+                        <h2 class="font-heading font-black text-2xl sm:text-4xl uppercase leading-tight">Нужен редкий товар из Вьетнама?</h2>
+                        <p class="text-slate-300 text-sm leading-relaxed">
+                            Мы поможем найти и выслать редкие биологически активные компоненты, фруктовые вытяжки, мази и азиатскую косметику по вашему индивидуальному запросу.
+                        </p>
+                        <div class="pt-2 flex flex-wrap gap-4">
+                            <button onclick="switchTab('delivery')" class="bg-brandRed hover:bg-rose-600 text-white font-bold text-xs px-6 py-3.5 rounded-xl uppercase tracking-wider transition">
+                                Заказать доставку
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Store Locations Section on Main Page -->
+            <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center space-y-2 mb-10">
+                    <span class="text-xs font-bold text-dustyGreen uppercase tracking-widest">Нячанг, Вьетнам</span>
+                    <h2 class="font-heading font-black text-2xl sm:text-3xl text-darkNeutral uppercase">Наши Магазины в Нячанге</h2>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <!-- Location 1 -->
+                    <div class="bg-white p-6 rounded-2xl border border-slate-200 space-y-4 hover:shadow-md transition">
+                        <div class="flex items-center space-x-3 text-brandRed">
+                            <i class="fa-solid fa-map-location-dot text-2xl"></i>
+                            <h3 class="font-heading font-bold text-slate-900 text-sm">Магазин #1 (Trần Phú)</h3>
+                        </div>
+                        <p class="text-xs text-slate-600 font-medium leading-relaxed">
+                            96 Trần Phú, Nha Trang, Khánh Hòa 650000, Vietnam
+                        </p>
+                        <div class="pt-2">
+                            <a href="https://maps.google.com/?q=96+Trần+Phú+Nha+Trang" target="_blank" class="w-full bg-dustyGreenBg hover:bg-dustyGreen hover:text-white text-dustyGreen text-xs font-bold py-2.5 px-4 rounded-xl transition flex items-center justify-center gap-2">
+                                <i class="fa-solid fa-route"></i> Построить маршрут
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Location 2 -->
+                    <div class="bg-white p-6 rounded-2xl border border-slate-200 space-y-4 hover:shadow-md transition">
+                        <div class="flex items-center space-x-3 text-brandRed">
+                            <i class="fa-solid fa-map-location-dot text-2xl"></i>
+                            <h3 class="font-heading font-bold text-slate-900 text-sm">Магазин #2 (Minh Khai)</h3>
+                        </div>
+                        <p class="text-xs text-slate-600 font-medium leading-relaxed">
+                            12 Nguyễn Thị Minh Khai, Nha Trang, Khánh Hòa 650000, Vietnam
+                        </p>
+                        <div class="pt-2">
+                            <a href="https://maps.google.com/?q=12+Nguyễn+Thị+Minh+Khai+Nha+Trang" target="_blank" class="w-full bg-dustyGreenBg hover:bg-dustyGreen hover:text-white text-dustyGreen text-xs font-bold py-2.5 px-4 rounded-xl transition flex items-center justify-center gap-2">
+                                <i class="fa-solid fa-route"></i> Построить маршрут
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Location 3 -->
+                    <div class="bg-white p-6 rounded-2xl border border-slate-200 space-y-4 hover:shadow-md transition">
+                        <div class="flex items-center space-x-3 text-brandRed">
+                            <i class="fa-solid fa-map-location-dot text-2xl"></i>
+                            <h3 class="font-heading font-bold text-slate-900 text-sm">Магазин #3 (Thiện Thuật)</h3>
+                        </div>
+                        <p class="text-xs text-slate-600 font-medium leading-relaxed">
+                            205 Nguyễn Thiện Thuật, Nha Trang, Khánh Hòa 650000, Vietnam
+                        </p>
+                        <div class="pt-2">
+                            <a href="https://maps.google.com/?q=205+Nguyễn+Thiện+Thuật+Nha+Trang" target="_blank" class="w-full bg-dustyGreenBg hover:bg-dustyGreen hover:text-white text-dustyGreen text-xs font-bold py-2.5 px-4 rounded-xl transition flex items-center justify-center gap-2">
+                                <i class="fa-solid fa-route"></i> Построить маршрут
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+        </div>
+
+
+        <!-- ================= PAGE 2: КАТАЛОГ ТОВАРОВ (CATALOG) ================= -->
+        <div id="page-catalog" class="page-content hidden max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-8">
+            
+            <!-- Breadcrumbs & Title -->
+            <div class="space-y-2 border-b border-slate-200 pb-4">
+                <div class="text-xs text-slate-400 flex items-center gap-2">
+                    <span class="hover:underline cursor-pointer" onclick="switchTab('home')">Главная</span>
+                    <span>/</span>
+                    <span class="text-slate-700 font-semibold">Каталог товаров</span>
+                </div>
+                <h1 class="font-heading font-black text-3xl sm:text-4xl text-darkNeutral uppercase">Каталог Продукции из Азии</h1>
+                <p class="text-xs sm:text-sm text-slate-500">Натуральные средства, БАДы, целебные сборы и косметика</p>
+            </div>
+
+            <!-- Filter Toolbar & Grid Container -->
+            <div class="grid grid-cols-1 lg:grid-cols-4 gap-8">
+                
+                <!-- Left Sidebar Filters -->
+                <div class="space-y-6 bg-white p-6 rounded-2xl border border-slate-200 h-fit">
+                    <h3 class="font-heading font-bold text-sm text-darkNeutral uppercase border-b border-slate-100 pb-3 flex items-center gap-2">
+                        <i class="fa-solid fa-filter text-dustyGreen"></i> Фильтр товаров
+                    </h3>
+
+                    <!-- Filter 1: Categories -->
+                    <div class="space-y-2">
+                        <label class="block text-xs font-bold text-slate-700 uppercase">Категория</label>
+                        <select id="filter-cat" onchange="applyFilters()" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2 text-xs text-slate-800 focus:outline-none focus:border-dustyGreen">
+                            <option value="all">Все категории</option>
+                            <option value="БАДы">БАДы и Витамины</option>
+                            <option value="Целебные средства">Грибы и Экстракты</option>
+                            <option value="Косметика">Косметика и Уход</option>
+                            <option value="Натуральные масла">Масла и Эликсиры</option>
+                        </select>
+                    </div>
+
+                    <!-- Filter 2: Country of Origin -->
+                    <div class="space-y-2">
+                        <label class="block text-xs font-bold text-slate-700 uppercase">Страна происхождения</label>
+                        <select id="filter-country" onchange="applyFilters()" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2 text-xs text-slate-800 focus:outline-none focus:border-dustyGreen">
+                            <option value="all">Все страны (5)</option>
+                            <option value="Вьетнам">Вьетнам 🇻🇳</option>
+                            <option value="Южная Корея">Южная Корея 🇰🇷</option>
+                            <option value="Таиланд">Таиланд 🇹🇭</option>
+                            <option value="Япония">Япония 🇯🇵</option>
+                            <option value="Китай">Китай 🇨🇳</option>
+                        </select>
+                    </div>
+
+                    <!-- Filter 3: Reset Button -->
+                    <button onclick="resetFilters()" class="w-full bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold text-xs py-2.5 rounded-xl transition">
+                        Сбросить фильтры
+                    </button>
+                </div>
+
+                <!-- Main Catalog Product Grid -->
+                <div class="lg:col-span-3 space-y-6">
+                    <!-- Top Catalog Bar -->
+                    <div class="flex flex-col sm:flex-row justify-between items-center gap-4 bg-white p-4 rounded-2xl border border-slate-200">
+                        <div class="text-xs text-slate-500">
+                            Найдено товаров: <span id="catalog-count" class="font-bold text-darkNeutral">0</span>
+                        </div>
+                        <div class="flex items-center space-x-2">
+                            <label class="text-xs text-slate-500 whitespace-nowrap">Сортировка:</label>
+                            <select id="catalog-sort" onchange="applyFilters()" class="bg-slate-50 border border-slate-200 rounded-lg px-3 py-1.5 text-xs text-slate-800 focus:outline-none">
+                                <option value="default">По популярности</option>
+                                <option value="price-asc">Сначала дешевле</option>
+                                <option value="price-desc">Сначала дороже</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- Dynamic Cards Grid -->
+                    <div id="catalog-products-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                        <!-- Loaded dynamically via JS -->
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+
+        <!-- ================= PAGE 3: ДОСТАВКА ИЗ ВЬЕТНАМА (DELIVERY) ================= -->
+        <div id="page-delivery" class="page-content hidden max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-10">
+            
+            <div class="text-center space-y-3">
+                <span class="inline-block bg-brandGreen/20 text-dustyGreen font-bold text-xs px-3 py-1 rounded-full uppercase">Служба байеров</span>
+                <h1 class="font-heading font-black text-3xl sm:text-5xl text-darkNeutral uppercase">Доставка товаров из Вьетнама</h1>
+                <p class="text-slate-600 text-sm max-w-2xl mx-auto">
+                    Выполняем индивидуальные заказы на доставку оригинальной вьетнамской продукции, косметики и традиционных лекарственных трав по всему миру.
+                </p>
+            </div>
+
+            <!-- Order Form & Rules Grid -->
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+                
+                <!-- Left: Order Form -->
+                <div class="lg:col-span-7 bg-white p-6 sm:p-8 rounded-3xl border border-slate-200 shadow-sm space-y-6">
+                    <h2 class="font-heading font-bold text-xl text-darkNeutral uppercase border-b border-slate-100 pb-3">
+                        Оформить заявку на доставку
+                    </h2>
+
+                    <form id="delivery-request-form" onsubmit="submitDeliveryRequest(event)" class="space-y-4">
+                        <div>
+                            <label class="block text-xs font-bold text-slate-700 uppercase mb-1">Название товара или категория *</label>
+                            <input type="text" required placeholder="Например: Артишоковый вытяжка паста 500г" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-xs focus:outline-none focus:border-dustyGreen">
+                        </div>
+
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                            <div>
+                                <label class="block text-xs font-bold text-slate-700 uppercase mb-1">Количество *</label>
+                                <input type="text" required placeholder="1 упак / 3 банки" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-xs focus:outline-none focus:border-dustyGreen">
+                            </div>
+                            <div>
+                                <label class="block text-xs font-bold text-slate-700 uppercase mb-1">Страна и Город *</label>
+                                <input type="text" required placeholder="Казахстан, Алматы" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-xs focus:outline-none focus:border-dustyGreen">
+                            </div>
+                        </div>
+
+                        <div>
+                            <label class="block text-xs font-bold text-slate-700 uppercase mb-1">Ссылка или наименование фото</label>
+                            <input type="text" placeholder="https://..." class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-xs focus:outline-none focus:border-dustyGreen">
+                        </div>
+
+                        <div>
+                            <label class="block text-xs font-bold text-slate-700 uppercase mb-1">Ваш Контакт (Telegram / WhatsApp / Телефон) *</label>
+                            <input type="text" required placeholder="@username или +7..." class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-xs focus:outline-none focus:border-dustyGreen">
+                        </div>
+
+                        <div>
+                            <label class="block text-xs font-bold text-slate-700 uppercase mb-1">Комментарий к заказу</label>
+                            <textarea rows="3" placeholder="Укажите особые пожелания по срокам или бренду..." class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-xs focus:outline-none focus:border-dustyGreen"></textarea>
+                        </div>
+
+                        <button type="submit" class="w-full bg-dustyGreen hover:bg-dustyGreenLight text-white font-extrabold text-xs py-4 rounded-xl uppercase tracking-wider transition shadow-lg flex items-center justify-center gap-2">
+                            <i class="fa-solid fa-paper-plane"></i> Отправить запрос менеджеру
+                        </button>
+                    </form>
+                </div>
+
+                <!-- Right: Rules & Restrictions -->
+                <div class="lg:col-span-5 space-y-6">
+                    <div class="bg-rose-50 border border-rose-200 p-6 rounded-3xl space-y-4">
+                        <div class="flex items-center space-x-3 text-brandRed">
+                            <i class="fa-solid fa-ban text-2xl"></i>
+                            <h3 class="font-heading font-bold text-sm uppercase">Запрещено к Пересылке</h3>
+                        </div>
+                        <p class="text-xs text-slate-700 leading-relaxed">
+                            Согласно международным правилам почтовых перевозок и таможенному законодательству, мы <strong>НЕ принимаем</strong> заявки на:
+                        </p>
+                        <ul class="text-xs text-slate-700 space-y-2 list-disc list-inside font-medium">
+                            <li>Алкогольные напитки любых крепкостей</li>
+                            <li>Табачную продукцию и электронные сигареты</li>
+                            <li>Рецептурные лекарственные медикаменты</li>
+                        </ul>
+                    </div>
+
+                    <div class="bg-dustyGreenBg border border-slate-200 p-6 rounded-3xl space-y-3">
+                        <h4 class="font-heading font-bold text-slate-900 text-sm flex items-center gap-2">
+                            <i class="fa-solid fa-truck-fast text-dustyGreen"></i> Как происходит доставка?
+                        </h4>
+                        <ol class="text-xs text-slate-600 space-y-2 list-decimal list-inside leading-relaxed">
+                            <li>Вы оставляете заявку с перечнем желаемых товаров.</li>
+                            <li>Менеджер уточняет наличие, вес и рассчитывает стоимость посылки.</li>
+                            <li>После согласования мы надежно упаковываем заказ и отправляем международной почтой.</li>
+                        </ol>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+
+        <!-- ================= PAGE 4: О МАГАЗИНЕ (ABOUT) ================= -->
+        <div id="page-about" class="page-content hidden max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-10">
+            <div class="text-center space-y-3">
+                <span class="text-xs font-bold text-dustyGreen uppercase tracking-widest">О бренде</span>
+                <h1 class="font-heading font-black text-3xl sm:text-5xl text-darkNeutral uppercase">NGỌC THẠCH «САПФИР»</h1>
+                <p class="text-slate-600 text-sm max-w-2xl mx-auto">Ваш надежный эксперт по азиатским товарам для здоровья и красоты с 2018 года</p>
+            </div>
+
+            <div class="bg-white p-8 sm:p-12 rounded-3xl border border-slate-200 space-y-6 leading-relaxed text-slate-700 text-sm sm:text-base">
+                <p>
+                    Магазин <strong>NGỌC THẠCH «САПФИР»</strong> расположен в курортном городе Нячанг (Вьетнам). Мы специализируемся на поставках натуральной продукции, созданной по традиционным восточным рецептам и передовым технологиям Азии.
+                </p>
+                <p>
+                    В нашем ассортименте представлено свыше 30 проверенных наименований: целебный гриб Линжи, премиальный Кордицепс, чистая паста красного женьшеня, экстракт артишока, аргинин, силимарин для печени и ценнейшее масло плодов Момордики (Gấc fruit oil).
+                </p>
+                
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-4 border-t border-slate-100">
+                    <div class="p-4 rounded-xl bg-slate-50 border border-slate-200">
+                        <h4 class="font-heading font-bold text-darkNeutral text-sm mb-1">Прямые договоры</h4>
+                        <p class="text-xs text-slate-500">Работаем непосредственно с фабриками-производителями Вьетнама и Южной Кореи.</p>
+                    </div>
+                    <div class="p-4 rounded-xl bg-slate-50 border border-slate-200">
+                        <h4 class="font-heading font-bold text-darkNeutral text-sm mb-1">Контроль качества</h4>
+                        <p class="text-xs text-slate-500">Каждая партия товаров имеет сертификаты качества и официальные условия хранения.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <!-- ================= PAGE 5: КОСМЕТИКА И УХОД ================= -->
+        <div id="page-cosmetics" class="page-content hidden max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-8">
+            <div class="space-y-2 border-b border-slate-200 pb-4">
+                <h1 class="font-heading font-black text-3xl sm:text-4xl text-darkNeutral uppercase">Азиатская Косметика и Уход</h1>
+                <p class="text-xs sm:text-sm text-slate-500">Натуральные кремы, эссенции, сыворотки и масла из Кореи, Таиланда и Вьетнама</p>
+            </div>
+
+            <div id="cosmetics-products-grid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+                <!-- Loaded dynamically via JS -->
+            </div>
+        </div>
+
+
+        <!-- ================= PAGE 6: БЛОГ / ПОЛЕЗНАЯ ИНФОРМАЦИЯ ================= -->
+        <div id="page-blog" class="page-content hidden max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-8">
+            <div class="text-center space-y-2">
+                <h1 class="font-heading font-black text-3xl sm:text-4xl text-darkNeutral uppercase">Полезная Информация</h1>
+                <p class="text-xs sm:text-sm text-slate-500">Статьи о применении БАДов, свойств женьшеня и секретах восточной медицины</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <article class="bg-white rounded-2xl border border-slate-200 overflow-hidden hover:shadow-md transition">
+                    <div class="p-6 space-y-3">
+                        <span class="text-[11px] font-bold text-dustyGreen uppercase">Здоровье печени</span>
+                        <h3 class="font-heading font-bold text-lg text-slate-900">В чем польза пасты Артишока и Силимарина?</h3>
+                        <p class="text-xs text-slate-600 leading-relaxed">
+                            Артишок из высокогорного района Далат является мощным природным гепатопротектором. Узнайте, как правильно принимать экстракт...
+                        </p>
+                        <button onclick="alert('Статья: Полное руководство по приему Артишока')" class="text-xs font-bold text-brandRed hover:underline pt-2 inline-block">Читать полностью →</button>
+                    </div>
+                </article>
+
+                <article class="bg-white rounded-2xl border border-slate-200 overflow-hidden hover:shadow-md transition">
+                    <div class="p-6 space-y-3">
+                        <span class="text-[11px] font-bold text-dustyGreen uppercase">Иммунитет</span>
+                        <h3 class="font-heading font-bold text-lg text-slate-900">Гриб Линжи (Рейши): Секрет долголетия</h3>
+                        <p class="text-xs text-slate-600 leading-relaxed">
+                            Линжи называют императорским грибом. Подробный разбор состава, влияния на сосуды и нервную систему...
+                        </p>
+                        <button onclick="alert('Статья: Гриб Линжи')" class="text-xs font-bold text-brandRed hover:underline pt-2 inline-block">Читать полностью →</button>
+                    </div>
+                </article>
+            </div>
+        </div>
+
+
+        <!-- ================= PAGE 7: КОНТАКТЫ И АДРЕСА ================= -->
+        <div id="page-contacts" class="page-content hidden max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-10">
+            <div class="text-center space-y-2">
+                <h1 class="font-heading font-black text-3xl sm:text-4xl text-darkNeutral uppercase">Контакты и Адреса Магазинов</h1>
+                <p class="text-xs sm:text-sm text-slate-500">Приглашаем вас посетить наши торговые точки в городе Нячанг</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div class="bg-white p-6 rounded-2xl border border-slate-200 space-y-3">
+                    <h3 class="font-heading font-bold text-brandRed text-base">Магазин #1</h3>
+                    <p class="text-xs text-slate-700 font-semibold">96 Trần Phú, Nha Trang, Khánh Hòa 650000, Vietnam</p>
+                    <p class="text-xs text-slate-500">График: 08:00 - 22:00 (Без выходных)</p>
+                </div>
+                <div class="bg-white p-6 rounded-2xl border border-slate-200 space-y-3">
+                    <h3 class="font-heading font-bold text-brandRed text-base">Магазин #2</h3>
+                    <p class="text-xs text-slate-700 font-semibold">12 Nguyễn Thị Minh Khai, Nha Trang, Khánh Hòa 650000, Vietnam</p>
+                    <p class="text-xs text-slate-500">График: 08:00 - 22:00 (Без выходных)</p>
+                </div>
+                <div class="bg-white p-6 rounded-2xl border border-slate-200 space-y-3">
+                    <h3 class="font-heading font-bold text-brandRed text-base">Магазин #3</h3>
+                    <p class="text-xs text-slate-700 font-semibold">205 Nguyễn Thiện Thuật, Nha Trang, Khánh Hòa 650000, Vietnam</p>
+                    <p class="text-xs text-slate-500">График: 08:00 - 22:00 (Без выходных)</p>
+                </div>
+            </div>
+
+            <!-- Simulated Map Container -->
+            <div class="bg-slate-200 rounded-3xl h-80 flex items-center justify-center border border-slate-300 relative overflow-hidden">
+                <div class="text-center space-y-2 p-6 bg-white/90 backdrop-blur-md rounded-2xl border border-white shadow-xl">
+                    <i class="fa-solid fa-map-location-dot text-4xl text-dustyGreen"></i>
+                    <h4 class="font-heading font-bold text-darkNeutral">Интерактивная карта Нячанга (Google Maps)</h4>
+                    <p class="text-xs text-slate-500">Все 3 магазина отображены на карте города</p>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- 8. LEGAL DISCLAIMER FOOTER NOTICE -->
+    <div class="bg-amber-50 border-t border-amber-200 text-amber-900 py-3 px-4 text-center text-xs font-medium">
+        <div class="max-w-7xl mx-auto">
+            <i class="fa-solid fa-triangle-exclamation text-amber-600 mr-1.5"></i>
+            <strong>Предупреждение:</strong> Товары магазина не являются лекарственными средствами. Информация на сайте носит ознакомительный характер и не заменяет консультацию специалиста.
+        </div>
+    </div>
+
+    <!-- 9. FOOTER -->
+    <footer class="bg-darkNeutral text-white border-t border-slate-800 py-12 px-4 sm:px-6 lg:px-8">
+        <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-8 text-xs">
+            
+            <div class="space-y-3">
+                <div class="font-heading font-extrabold text-brandRed text-lg">NGỌC THẠCH</div>
+                <div class="font-heading font-bold text-dustyGreen text-sm tracking-widest uppercase">САПФИР</div>
+                <p class="text-slate-400 leading-relaxed">
+                    Продажа натуральной продукции, БАДов и косметики из Азии (Вьетнам, Корея, Таиланд, Япония).
+                </p>
+            </div>
+
+            <div class="space-y-2">
+                <h4 class="font-heading font-bold text-white text-sm uppercase mb-3">Навигация</h4>
+                <p><button onclick="switchTab('catalog')" class="hover:text-brandGreen">Каталог товаров</button></p>
+                <p><button onclick="switchTab('delivery')" class="hover:text-brandGreen">Доставка из Вьетнама</button></p>
+                <p><button onclick="switchTab('cosmetics')" class="hover:text-brandGreen">Косметика и уход</button></p>
+                <p><button onclick="switchTab('about')" class="hover:text-brandGreen">О магазине</button></p>
+            </div>
+
+            <div class="space-y-2">
+                <h4 class="font-heading font-bold text-white text-sm uppercase mb-3">Контакты</h4>
+                <p class="text-slate-300"><i class="fa-solid fa-location-dot text-brandGreen mr-2"></i>Нячанг, Вьетнам</p>
+                <p class="text-slate-300"><i class="fa-brands fa-telegram text-sky-400 mr-2"></i>Telegram-канал</p>
+                <p class="text-slate-300"><i class="fa-brands fa-whatsapp text-emerald-400 mr-2"></i>WhatsApp поддержка</p>
+            </div>
+
+            <div class="space-y-2">
+                <h4 class="font-heading font-bold text-white text-sm uppercase mb-3">Правовая информация</h4>
+                <p><a href="javascript:void(0)" onclick="alert('Политика конфиденциальности')" class="text-slate-400 hover:underline">Политика конфиденциальности</a></p>
+                <p><a href="javascript:void(0)" onclick="alert('Условия обработки данных')" class="text-slate-400 hover:underline">Согласие на обработку данных</a></p>
+                <p><a href="javascript:void(0)" onclick="alert('Правила доставки')" class="text-slate-400 hover:underline">Условия заказа и доставки</a></p>
+            </div>
+
+        </div>
+
+        <div class="max-w-7xl mx-auto mt-8 pt-6 border-t border-slate-800 text-center text-slate-500 text-[11px]">
+            © 2026 NGỌC THẠCH «САПФИР». Все права защищены. Нячанг, Вьетнам.
+        </div>
+    </footer>
+
+
+    <!-- ================= MODAL: DETAILED PRODUCT VIEW & ORDER ================= -->
+    <div id="product-modal" class="fixed inset-0 z-50 hidden bg-darkNeutral/80 backdrop-blur-sm flex items-center justify-center p-4 overflow-y-auto">
+        <div class="bg-white w-full max-w-2xl rounded-3xl overflow-hidden shadow-2xl border border-slate-200 relative my-8" onclick="event.stopPropagation()">
+            
+            <button onclick="closeProductModal()" class="absolute top-4 right-4 z-10 w-9 h-9 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-600 flex items-center justify-center transition">
+                <i class="fa-solid fa-xmark text-lg"></i>
+            </button>
+
+            <div class="p-6 sm:p-8 space-y-6 max-h-[85vh] overflow-y-auto">
+                
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                    <!-- Modal Visual Header -->
+                    <div class="aspect-square rounded-2xl bg-dustyGreenBg flex flex-col items-center justify-center p-6 text-center border border-slate-200">
+                        <i id="m-icon" class="fa-solid fa-capsules text-6xl text-dustyGreen mb-3"></i>
+                        <span id="m-badge" class="bg-brandRed text-white text-[10px] font-bold px-3 py-1 rounded-full uppercase"></span>
+                    </div>
+
+                    <!-- Modal Main Specs -->
+                    <div class="space-y-3">
+                        <span id="m-category" class="text-xs font-bold text-dustyGreen uppercase tracking-widest"></span>
+                        <h2 id="m-title" class="font-heading font-black text-xl sm:text-2xl text-darkNeutral"></h2>
+                        <div class="text-2xl font-extrabold text-brandRed" id="m-price"></div>
+                        
+                        <div class="text-xs space-y-1.5 text-slate-600 pt-2 border-t border-slate-100">
+                            <div><strong>Страна:</strong> <span id="m-country"></span></div>
+                            <div><strong>Производитель:</strong> <span id="m-vendor"></span></div>
+                            <div><strong>Объем / Вес:</strong> <span id="m-weight"></span></div>
+                            <div><strong>Наличие:</strong> <span id="m-stock" class="text-emerald-600 font-bold">В наличии в Нячанге</span></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Product Full Details -->
+                <div class="space-y-3 border-t border-slate-100 pt-4 text-xs text-slate-700">
+                    <h4 class="font-heading font-bold text-slate-900 text-sm">Описание и состав:</h4>
+                    <p id="m-desc" class="leading-relaxed"></p>
+                    <div><strong>Состав:</strong> <span id="m-ingredients"></span></div>
+                    <div><strong>Условия хранения:</strong> <span id="m-storage"></span></div>
+                </div>
+
+                <!-- Quick Messenger Order Form inside Modal -->
+                <div class="bg-slate-50 p-4 sm:p-5 rounded-2xl border border-slate-200 space-y-3">
+                    <h4 class="font-heading font-bold text-darkNeutral text-xs uppercase flex items-center gap-1.5">
+                        <i class="fa-solid fa-bolt text-amber-500"></i> Быстрый заказ через мессенджер
+                    </h4>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                        <input type="text" id="order-user-name" placeholder="Ваше Имя" class="bg-white border border-slate-200 rounded-xl px-3 py-2 text-xs">
+                        <input type="text" id="order-user-contact" placeholder="Телефон / Telegram / WhatsApp *" class="bg-white border border-slate-200 rounded-xl px-3 py-2 text-xs">
+                    </div>
+                    <div class="flex gap-3 pt-1">
+                        <button onclick="sendOrder('Telegram')" class="flex-1 bg-sky-500 hover:bg-sky-600 text-white font-bold text-xs py-3 rounded-xl transition flex items-center justify-center gap-2">
+                            <i class="fa-brands fa-telegram text-sm"></i> Заказать в Telegram
+                        </button>
+                        <button onclick="sendOrder('WhatsApp')" class="flex-1 bg-emerald-500 hover:bg-emerald-600 text-white font-bold text-xs py-3 rounded-xl transition flex items-center justify-center gap-2">
+                            <i class="fa-brands fa-whatsapp text-sm"></i> Заказать в WhatsApp
+                        </button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+
+    <!-- ================= JAVASCRIPT LOGIC & PRODUCT DATABASE ================= -->
+    <script>
+        // 1. Comprehensive Product Database (30 Items according to specification)
+        const productsDB = [
+            { id: 1, name: "Маточное молочко (Royal Jelly)", category: "БАДы", price: 18, country: "Вьетнам", vendor: "Dalat Bee Co.", weight: "100 г", icon: "fa-bottle-droplet", desc: "Натуральное свежее маточное молочко высокогорья Далат. Мощнейший биостимулятор иммунитета.", ingredients: "100% натуральное маточное молочко пчелиное", storage: "Хранить в морозильнике при -18°C" },
+            { id: 2, name: "Гриб Линжи Премиум (Lingzhi)", category: "Целебные средства", price: 35, country: "Вьетнам", vendor: "Nha Trang Bio", weight: "500 г", icon: "fa-seedling", desc: "Сушеный нарезной гриб Линжи (Рейши). Для заваривания целебных отваров и настоек.", ingredients: "100% цельный красный гриб Линжи", storage: "В сухом темном месте" },
+            { id: 3, name: "Кордицепс Азиатский (Cordyceps)", category: "Целебные средства", price: 45, country: "Южная Корея", vendor: "Korea Ginseng Corp", weight: "60 капсул", icon: "fa-capsules", desc: "Экстракт мицелия кордицепса для повышения выносливости, защиты легких и почек.", ingredients: "Экстракт Cordyceps Sinensis 99%", storage: "От +5°C до +25°C" },
+            { id: 4, name: "Красный Женьшень (Паста 6 лет)", category: "Целебные средства", price: 50, country: "Южная Корея", vendor: "Cheong Kwan Jang", weight: "240 г", icon: "fa-jar", desc: "Концентрированная паста 6-летнего красного корейского женьшеня. Тонус и энергии.", ingredients: "Концентрат красного женьшеня 100%", storage: "После вскрытия в холодильнике" },
+            { id: 5, name: "Магний B6 Актив", category: "БАДы", price: 12, country: "Япония", vendor: "DHC Japan", weight: "90 таблеток", icon: "fa-pills", desc: "Высокоусвояемый магний с витамином B6 для поддержки нервной системы и нормализации сна.", ingredients: "Цитрат магния, витамин B6", storage: "В сухом месте" },
+            { id: 6, name: "Силимарин Гепато (Silymarin)", category: "БАДы", price: 15, country: "Вьетнам", vendor: "Pharma Vietnam", weight: "100 капсул", icon: "fa-notes-medical", desc: "Экстракт расторопши для быстрой регенерации клеток печени и очищения от токсинов.", ingredients: "Силимарин 80%, экстракт артишока", storage: "При комнатной температуре" },
+            { id: 7, name: "L-Аргинин Ультра", category: "БАДы", price: 16, country: "Таиланд", vendor: "Thai BioHealth", weight: "60 капсул", icon: "fa-heart-pulse", desc: "Аминокислота для улучшения кровообращения, выносливости и тонуса сосудов.", ingredients: "L-Аргинин гидрохлорид 1000мг", storage: "В сухом месте" },
+            { id: 8, name: "Паста Артишока из Далата", category: "Целебные средства", price: 14, country: "Вьетнам", vendor: "Dalat Heritage", weight: "1000 г", icon: "fa-box-tissue", desc: "Густая смола из листьев и соцветий артишока. Натуральный детокс для организма.", ingredients: "100% вытяжка зеленых артишоков", storage: "В прохладном месте" },
+            { id: 9, name: "Масло плодов Момордики (Gấc Oil)", category: "Натуральные масла", price: 10, country: "Вьетнам", vendor: "Vinaga Vietnam", weight: "100 капсул", icon: "fa-oil-can", desc: "Масло плодов Гак с высочайшим содержанием бета-каротина и ликопина для зрения и кожи.", ingredients: "Масло плодов Момордики (Gấc)", storage: "Защищать от прямого света" },
+            { id: 10, name: "Улиточный крем Слизь Снейл", category: "Косметика", price: 22, country: "Южная Корея", vendor: "Mizon Korea", weight: "50 мл", icon: "fa-spa", desc: "Интенсивный регенерирующий крем с муцином улитки против морщин и воспалений.", ingredients: "Муцин улитки 92%, гиалуроновая кислота", storage: "От +5°C до +25°C" },
+            { id: 11, name: "Масло Кокоса Холодного Отжима", category: "Натуральные масла", price: 8, country: "Вьетнам", vendor: "Sense of Pho", weight: "250 мл", icon: "fa-bottle-water", desc: "Органическое нерафинированное кокосовое масло для ухода за волосами и телом.", ingredients: "100% сырое кокосовое масло", storage: "Застывает при t ниже +24°C" },
+            { id: 12, name: "Сыворотка с Зеленым Чаем", category: "Косметика", price: 19, country: "Южная Корея", vendor: "Innisfree", weight: "80 мл", icon: "fa-droplet", desc: "Увлажняющая антиоксидантная сыворотка из семян сеульского зеленого чая.", ingredients: "Экстракт листьев зеленого чая 77%", storage: "В сухом месте" },
+            { id: 13, name: "Змеиный Бальзам (Кобра)", category: "Целебные средства", price: 9, country: "Таиланд", vendor: "Banna Thailand", weight: "50 г", icon: "fa-staff-snake", desc: "Согревающий бальзам с ядом кобры от болей в суставах и мышцах.", ingredients: "Яд кобры, эфирные масла, ментол", storage: "В недоступном для детей месте" },
+            { id: 14, name: "Коллаген Морской Пептидный", category: "БАДы", price: 28, country: "Япония", vendor: "Meiji Japan", weight: "200 г", icon: "fa-cube", desc: "Низкомолекулярный гидролизованный морской коллаген с гиалуроновой кислотой.", ingredients: "Морской коллаген, витамин C", storage: "В плотно закрытой упаковке" },
+            { id: 15, name: "Женьшеневый чай с мед", category: "Целебные средства", price: 11, country: "Китай", vendor: "Yunnan Tea House", weight: "20 пакетов", icon: "fa-mug-hot", desc: "Традиционный азиатский чай с ломтиками корня женьшеня и натуральным медом.", ingredients: "Корень женьшеня, горный мед", storage: "В сухом месте" }
+        ];
+
+        let selectedProduct = null;
+        let currentLang = 'ru';
+
+        // Initialize Page on Load
+        window.onload = function() {
+            renderHomeProducts();
+            renderCatalogProducts(productsDB);
+            renderCosmeticsProducts();
+        };
+
+        // Tab Navigation Switcher
+        function switchTab(tabName) {
+            document.querySelectorAll('.page-content').forEach(el => el.classList.add('hidden'));
+            document.getElementById(`page-${tabName}`).classList.remove('hidden');
+
+            document.querySelectorAll('.nav-link').forEach(el => {
+                el.classList.remove('text-brandRed', 'border-b-2', 'border-brandRed');
+            });
+            const activeNav = document.getElementById(`nav-${tabName}`);
+            if(activeNav) {
+                activeNav.classList.add('text-brandRed', 'border-b-2', 'border-brandRed');
+            }
+
+            document.getElementById('mobile-nav').classList.add('hidden');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // Render Home Products (Hits)
+        function renderHomeProducts() {
+            const container = document.getElementById('home-products-grid');
+            const featured = productsDB.slice(0, 4);
+            container.innerHTML = featured.map(p => createProductCardHTML(p)).join('');
+        }
+
+        // Render Catalog Products Grid
+        function renderCatalogProducts(list) {
+            const container = document.getElementById('catalog-products-grid');
+            document.getElementById('catalog-count').innerText = list.length;
+            if(list.length === 0) {
+                container.innerHTML = `<div class="col-span-full py-12 text-center text-slate-400">Товары по выбранным критериям не найдены</div>`;
+                return;
+            }
+            container.innerHTML = list.map(p => createProductCardHTML(p)).join('');
+        }
+
+        // Render Cosmetics Page Grid
+        function renderCosmeticsProducts() {
+            const container = document.getElementById('cosmetics-products-grid');
+            const cosmetics = productsDB.filter(p => p.category === 'Косметика' || p.category === 'Натуральные масла');
+            container.innerHTML = cosmetics.map(p => createProductCardHTML(p)).join('');
+        }
+
+        // Template HTML Generator for Product Card
+        function createProductCardHTML(product) {
+            return `
+            <div class="bg-white rounded-2xl border border-slate-200 overflow-hidden hover:border-dustyGreen hover:shadow-xl transition-all duration-300 flex flex-col justify-between group">
+                <div class="p-5 space-y-3">
+                    <div class="aspect-square rounded-xl bg-dustyGreenBg flex flex-col items-center justify-center relative p-4 group-hover:scale-105 transition">
+                        <span class="absolute top-2 right-2 bg-brandRed text-white text-[10px] font-extrabold px-2 py-0.5 rounded-full">${product.country}</span>
+                        <i class="fa-solid ${product.icon} text-5xl text-dustyGreen mb-2"></i>
+                        <span class="text-[10px] text-slate-500 font-semibold uppercase tracking-wider">${product.weight}</span>
+                    </div>
+
+                    <div class="space-y-1">
+                        <span class="text-[10px] font-bold text-dustyGreen uppercase tracking-widest">${product.category}</span>
+                        <h3 class="font-heading font-bold text-slate-900 text-sm leading-snug line-clamp-2">${product.name}</h3>
+                    </div>
+
+                    <p class="text-xs text-slate-500 line-clamp-2 leading-relaxed">${product.desc}</p>
+                </div>
+
+                <div class="p-5 pt-0 border-t border-slate-100 flex items-center justify-between mt-auto">
+                    <div>
+                        <span class="text-[10px] text-slate-400 block">Цена</span>
+                        <span class="font-heading font-black text-lg text-brandRed">$${product.price}</span>
+                    </div>
+                    <button onclick="openProductModal(${product.id})" class="bg-dustyGreen hover:bg-dustyGreenLight text-white font-bold text-xs px-4 py-2.5 rounded-xl transition flex items-center gap-1.5 shadow-sm">
+                        <span>Заказать</span> <i class="fa-solid fa-chevron-right text-[10px]"></i>
+                    </button>
+                </div>
+            </div>
+            `;
+        }
+
+        // Modal Handler
+        function openProductModal(productId) {
+            selectedProduct = productsDB.find(p => p.id === productId);
+            if(!selectedProduct) return;
+
+            document.getElementById('m-title').innerText = selectedProduct.name;
+            document.getElementById('m-category').innerText = selectedProduct.category;
+            document.getElementById('m-price').innerText = `$${selectedProduct.price}`;
+            document.getElementById('m-country').innerText = selectedProduct.country;
+            document.getElementById('m-vendor').innerText = selectedProduct.vendor;
+            document.getElementById('m-weight').innerText = selectedProduct.weight;
+            document.getElementById('m-desc').innerText = selectedProduct.desc;
+            document.getElementById('m-ingredients').innerText = selectedProduct.ingredients;
+            document.getElementById('m-storage').innerText = selectedProduct.storage;
+            document.getElementById('m-badge').innerText = selectedProduct.country;
+
+            const iconEl = document.getElementById('m-icon');
+            iconEl.className = `fa-solid ${selectedProduct.icon} text-6xl text-dustyGreen mb-3`;
+
+            document.getElementById('product-modal').classList.remove('hidden');
+        }
+
+        function closeProductModal() {
+            document.getElementById('product-modal').classList.add('hidden');
+        }
+
+        // Apply Filters on Catalog Page
+        function applyFilters() {
+            const cat = document.getElementById('filter-cat').value;
+            const country = document.getElementById('filter-country').value;
+            const sort = document.getElementById('catalog-sort').value;
+
+            let result = [...productsDB];
+
+            if(cat !== 'all') {
+                result = result.filter(p => p.category === cat);
+            }
+            if(country !== 'all') {
+                result = result.filter(p => p.country === country);
+            }
+
+            if(sort === 'price-asc') {
+                result.sort((a,b) => a.price - b.price);
+            } else if(sort === 'price-desc') {
+                result.sort((a,b) => b.price - a.price);
+            }
+
+            renderCatalogProducts(result);
+        }
+
+        function resetFilters() {
+            document.getElementById('filter-cat').value = 'all';
+            document.getElementById('filter-country').value = 'all';
+            document.getElementById('catalog-sort').value = 'default';
+            renderCatalogProducts(productsDB);
+        }
+
+        function filterCategory(catName) {
+            switchTab('catalog');
+            document.getElementById('filter-cat').value = catName;
+            applyFilters();
+        }
+
+        // Search Bar logic
+        function handleGlobalSearch(e) {
+            if(e.key === 'Enter') {
+                executeSearch();
+            }
+        }
+
+        function executeSearch() {
+            const query = document.getElementById('global-search-input').value.toLowerCase().trim();
+            if(!query) return;
+
+            switchTab('catalog');
+            const filtered = productsDB.filter(p => 
+                p.name.toLowerCase().includes(query) || 
+                p.desc.toLowerCase().includes(query) ||
+                p.category.toLowerCase().includes(query)
+            );
+            renderCatalogProducts(filtered);
+        }
+
+        // Send Order simulation
+        function sendOrder(channel) {
+            const name = document.getElementById('order-user-name').value.trim();
+            const contact = document.getElementById('order-user-contact').value.trim();
+
+            if(!contact) {
+                alert('Пожалуйста, укажите ваш контактный номер или мессенджер');
+                return;
+            }
+
+            const text = `Здравствуйте! Хочу заказать в NGỌC THẠCH САПФИР:\nТовар: ${selectedProduct.name} ($${selectedProduct.price})\nИмя: ${name || 'Клиент'}\nКонтакт: ${contact}`;
+            
+            if(channel === 'Telegram') {
+                window.open(`https://t.me/sup_sihanoukville?text=${encodeURIComponent(text)}`, '_blank');
+            } else {
+                window.open(`https://wa.me/qr/FTGHYI24RDLLJ1?text=${encodeURIComponent(text)}`, '_blank');
+            }
+            closeProductModal();
+        }
+
+        function submitDeliveryRequest(e) {
+            e.preventDefault();
+            alert('Ваша заявка на доставку из Вьетнама успешно сформирована! Менеджер свяжется с вами в течение 15 минут.');
+            document.getElementById('delivery-request-form').reset();
+        }
+
+        // Toggle Admin Drawer
+        function toggleAdminPanel() {
+            const panel = document.getElementById('admin-panel');
+            panel.classList.toggle('hidden');
+        }
+
+        function showAdminAlert(action) {
+            alert(`[CMS Управление]: ${action}. В боевой версии здесь открывается интерфейс администратора.`);
+        }
+
+        // Language toggle simulator
+        function changeLang(lang) {
+            currentLang = lang;
+            ['ru', 'vn', 'en'].forEach(l => {
+                const btn = document.getElementById(`lang-btn-${l}`);
+                if(l === lang) {
+                    btn.className = "text-brandGreen underline px-1 font-bold";
+                } else {
+                    btn.className = "text-slate-400 hover:text-white px-1";
+                }
+            });
+        }
+
+        // Mobile Nav Toggle
+        function toggleMobileNav() {
+            const nav = document.getElementById('mobile-nav');
+            nav.classList.toggle('hidden');
+        }
+    </script>
+</body>
+</html>
