@@ -964,26 +964,34 @@
 }
 
         // Modal Handler
-        function openProductModal(productId) {
-            selectedProduct = productsDB.find(p => p.id === productId);
-            if(!selectedProduct) return;
+function openProductModal(productId) {
+    selectedProduct = productsDB.find(p => p.id === productId);
+    if(!selectedProduct) return;
 
-            document.getElementById('m-title').innerText = selectedProduct.name;
-            document.getElementById('m-category').innerText = selectedProduct.category;
-            document.getElementById('m-price').innerText = `$${selectedProduct.price}`;
-            document.getElementById('m-country').innerText = selectedProduct.country;
-            document.getElementById('m-vendor').innerText = selectedProduct.vendor;
-            document.getElementById('m-weight').innerText = selectedProduct.weight;
-            document.getElementById('m-desc').innerText = selectedProduct.desc;
-            document.getElementById('m-ingredients').innerText = selectedProduct.ingredients;
-            document.getElementById('m-storage').innerText = selectedProduct.storage;
-            document.getElementById('m-badge').innerText = selectedProduct.country;
+    document.getElementById('m-title').innerText = selectedProduct.name;
+    document.getElementById('m-category').innerText = selectedProduct.category;
+    document.getElementById('m-price').innerText = `$${selectedProduct.price}`;
+    document.getElementById('m-country').innerText = selectedProduct.country;
+    document.getElementById('m-vendor').innerText = selectedProduct.vendor;
+    document.getElementById('m-weight').innerText = selectedProduct.weight;
+    document.getElementById('m-desc').innerText = selectedProduct.desc;
+    document.getElementById('m-ingredients').innerText = selectedProduct.ingredients;
+    document.getElementById('m-storage').innerText = selectedProduct.storage;
+    document.getElementById('m-badge').innerText = selectedProduct.country;
 
-            const iconEl = document.getElementById('m-icon');
-            iconEl.className = `fa-solid ${selectedProduct.icon} text-6xl text-dustyGreen mb-3`;
-
-            document.getElementById('product-modal').classList.remove('hidden');
+    const iconEl = document.getElementById('m-icon');
+    if (iconEl) {
+        if (selectedProduct.image) {
+            iconEl.innerHTML = `<img src="${selectedProduct.image}" alt="${selectedProduct.name}" class="w-full h-full object-cover rounded-xl">`;
+            iconEl.className = "w-full h-full relative overflow-hidden rounded-xl";
+        } else {
+            iconEl.innerHTML = `<i class="fa-solid ${selectedProduct.icon} text-6xl text-dustyGreen mb-3"></i>`;
+            iconEl.className = "aspect-square rounded-xl bg-dustyGreenBg flex flex-col items-center justify-center relative p-4 overflow-hidden";
         }
+    }
+
+    document.getElementById('product-modal').classList.remove('hidden');
+}
 
         function closeProductModal() {
             document.getElementById('product-modal').classList.add('hidden');
